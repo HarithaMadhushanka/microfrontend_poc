@@ -10,6 +10,8 @@ module.exports = {
           remotes: {
             remote_app_components:
               "remote_app_components@http://localhost:3003/remoteEntry.js",
+            remote_data_provider:
+              "remote_data_provider@http://localhost:3004/remoteEntry.js",
           },
           shared: {
             react: { singleton: true, eager: true },

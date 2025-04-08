@@ -1,4 +1,5 @@
 import React, { Suspense, useState, useEffect } from "react";
+import RemotePostList from "../components/RemotePostList";
 
 // Remote components
 const RemoteThemedComponent = React.lazy(() =>
@@ -72,6 +73,7 @@ const MainLayout = ({ user, onLogout }) => {
               <RemoteUserSummaryCards />
               <ChartWidget />
               <RemoteActivityFeed />
+              <RemotePostList />
             </Suspense>
           )}
 
