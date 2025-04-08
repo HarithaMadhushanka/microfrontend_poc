@@ -2,16 +2,22 @@ import React, { Suspense, useState, useEffect } from "react";
 
 // Remote components
 const RemoteThemedComponent = React.lazy(() =>
-  import("remote_app_1/ThemedComponent")
+  import("remote_app_components/ThemedComponent")
 );
-const RemoteThemePanel = React.lazy(() => import("remote_app_1/ThemingPanel"));
-const ChartWidget = React.lazy(() => import("remote_app_2/ChartWidget"));
-const TableWidget = React.lazy(() => import("remote_app_2/TableWidget"));
+const RemoteThemePanel = React.lazy(() =>
+  import("remote_app_components/ThemingPanel")
+);
+const ChartWidget = React.lazy(() =>
+  import("remote_app_components/ChartWidget")
+);
+const TableWidget = React.lazy(() =>
+  import("remote_app_components/TableWidget")
+);
 const RemoteUserSummaryCards = React.lazy(() =>
-  import("remote_app_2/UserSummaryCards")
+  import("remote_app_components/UserSummaryCards")
 );
 const RemoteActivityFeed = React.lazy(() =>
-  import("remote_app_2/ActivityFeed")
+  import("remote_app_components/ActivityFeed")
 );
 
 const MainLayout = ({ user, onLogout }) => {

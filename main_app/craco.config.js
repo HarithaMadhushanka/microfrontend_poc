@@ -8,8 +8,8 @@ module.exports = {
         new ModuleFederationPlugin({
           name: "host_app",
           remotes: {
-            remote_app_1: "remote_app_1@http://localhost:3001/remoteEntry.js",
-            remote_app_2: "remote_app_2@http://localhost:3002/remoteEntry.js",
+            remote_app_components:
+              "remote_app_components@http://localhost:3003/remoteEntry.js",
           },
           shared: {
             react: { singleton: true, eager: true },
