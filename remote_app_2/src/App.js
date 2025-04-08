@@ -1,9 +1,9 @@
 import "./App.css";
 import React from "react";
-import AdminSampleWidget from "./components/AdminSampleWidget";
+import ChartWidget from "./components/ChartWidget";
 
 function App() {
-  return <AdminSampleWidget />;
+  return <ChartWidget />;
 }
 
 export default App;

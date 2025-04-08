@@ -5,8 +5,13 @@ const RemoteThemedComponent = React.lazy(() =>
   import("remote_app_1/ThemedComponent")
 );
 const RemoteThemePanel = React.lazy(() => import("remote_app_1/ThemingPanel"));
-const AdminSampleWidget = React.lazy(() =>
-  import("remote_app_2/AdminSampleWidget")
+const ChartWidget = React.lazy(() => import("remote_app_2/ChartWidget"));
+const TableWidget = React.lazy(() => import("remote_app_2/TableWidget"));
+const RemoteUserSummaryCards = React.lazy(() =>
+  import("remote_app_2/UserSummaryCards")
+);
+const RemoteActivityFeed = React.lazy(() =>
+  import("remote_app_2/ActivityFeed")
 );
 
 const MainLayout = ({ user, onLogout }) => {
@@ -35,7 +40,7 @@ const MainLayout = ({ user, onLogout }) => {
     >
       {/* Top Navbar */}
       <div className="p-4 flex justify-between items-center bg-black text-white">
-        <h1 className="text-xl font-bold">🏠 Microfrontend POC</h1>
+        <h1 className="text-xl font-bold">Microfrontend POC</h1>
         <div className="flex items-center gap-4">
           <button onClick={() => setPanelOpen(!panelOpen)}>
             ☰ Theme Panel
@@ -58,7 +63,15 @@ const MainLayout = ({ user, onLogout }) => {
 
           {isAdmin && (
             <Suspense fallback={<div>Loading dashboard...</div>}>
-              <AdminSampleWidget />
+              <RemoteUserSummaryCards />
+              <ChartWidget />
+              <RemoteActivityFeed />
+            </Suspense>
+          )}
+
+          {!isAdmin && (
+            <Suspense fallback={<div>Loading dashboard...</div>}>
+              <TableWidget />
             </Suspense>
           )}
         </div>
