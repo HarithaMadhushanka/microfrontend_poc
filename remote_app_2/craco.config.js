@@ -9,7 +9,10 @@ module.exports = {
           name: "remote_app_2",
           filename: "remoteEntry.js",
           exposes: {
-            "./AdminSampleWidget": "./src/components/AdminSampleWidget",
+            "./ChartWidget": "./src/components/ChartWidget",
+            "./TableWidget": "./src/components/TableWidget",
+            "./UserSummaryCards": "./src/components/UserSummaryCards.jsx",
+            "./ActivityFeed": "./src/components/ActivityFeed.jsx",
           },
           shared: {
             react: { singleton: true, eager: true },
