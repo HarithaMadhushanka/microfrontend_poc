@@ -1,120 +1,90 @@
-# Microfrontend POC Documentation
+# Microfrontend POC using React + Module Federation
 
-## Overview
+This project showcases a clean microfrontend architecture using **React**, **CRA**, **CRACO**, and **Module Federation**.  
+It is structured into three independently running apps:
 
-This project demonstrates a microfrontend architecture using **React** and **Webpack Module Federation** via **Create React App (CRA)**. The application includes multiple remote apps exposing components and a host app that authenticates users and dynamically loads components based on the user role.
-
----
-
-## Project Structure
-
-```
-root/
-├── main_app/         # Host application (login, layout, dynamic loading)
-├── remote_app_1/     # Exposes ThemedComponent & ThemingPanel
-└── remote_app_2/     # Exposes DashboardWidget
-```
+- 🟦 **Main App (Host App)** (port `3000`)
+- 🟨 **Remote Components App** (`remote_app_components`, port `3003`)
+- 🟩 **Remote Data Provider App** (`remote_data_provider`, port `3004`)
 
 ---
 
-## Features
+## 🚀 Architecture Overview
 
-### 🔐 Authentication
-
-- Hardcoded login credentials
-- State is persisted using `localStorage`
-
-### 🎨 Theming
-
-- ThemingPanel exposed by `remote_app_1`
-- All users can select themes
-- Only admins can add new themes
-- Themes persist per user using `localStorage`
-
-### 🧩 Remote Components
-
-- `ThemedComponent` and `ThemingPanel` from `remote_app_1`
-- `DashboardWidget` from `remote_app_2`
-- Admin users see the Dashboard Widget
-- All users see the Theming Panel but only admins can add new themes
+### ▶️ Main App (`main_app`, port `3000`)
+- Main container for the entire app.
+- Handles routing and layout for the main shell.
+- Dynamically loads:
+  - UI components from `remote_app_components`
+  - Utility and API functions from `remote_data_provider`
 
 ---
 
-## Setup & Run
+### 🧩 Remote Components App (`remote_app_components`, port `3003`)
+- Exposes **only UI components**:
+  - `ChartWidget`
+  - `TableWidget`
+  - `UserSummaryCards`
+  - `ActivityFeed`
+  - `ThemedComponent`
+- These components are themable and can be role-aware (admin vs general).
 
-### 1. Install dependencies
+---
+
+### 🔌 Remote Data Provider (`remote_data_provider`, port `3004`)
+- Exposes **pure JavaScript modules**:
+  - API functions like `fetchPublicPosts`, etc...
+  - Utility functions like `toTitleCase`, etc...
+- Used directly inside the host for logic-heavy concerns or data fetching.
+
+---
+
+## 🛠️ Tech Stack
+
+- ⚛️ React + CRA (Create React App)
+- 🧪 CRACO (Webpack override)
+- 🧩 Webpack 5 Module Federation
+- 📊 Recharts (for visual widgets like `ChartWidget`)
+- 🧰 Plain JS utilities (for logic from `remote_data_provider`)
+
+---
+
+## ▶️ Getting Started
+
+### 🟨 Start Remote Components
 
 ```bash
-cd main_app && yarn install
-cd ../remote_app_1 && yarn install
-cd ../remote_app_2 && yarn install
+cd remote_app_components
+yarn install
+yarn start
+# Runs on http://localhost:3003
 ```
 
-### 2. Start apps
-
-In separate terminals:
+### 🟩 Start Remote Data Provider
 
 ```bash
-yarn start  # for main_app (port 3000)
-yarn start  # for remote_app_1 (port 3001)
-yarn start  # for remote_app_2 (port 3002)
+cd remote_data_provider
+yarn install
+yarn start
+# Runs on http://localhost:3004
+```
+
+### 🟦 Start Main App
+
+```bash
+cd main_app
+yarn install
+yarn start
+# Runs on http://localhost:3000
 ```
 
 ---
 
-## Federation Configuration
+## 🧪 Features Demo
 
-### Example: `remote_app_1/craco.config.js`
-
-```js
-const { ModuleFederationPlugin } = require("webpack").container;
-
-module.exports = {
-  webpack: {
-    configure: (config) => {
-      config.output.publicPath = "auto";
-      config.plugins.push(
-        new ModuleFederationPlugin({
-          name: "remote_app_1",
-          filename: "remoteEntry.js",
-          exposes: {
-            "./ThemedComponent": "./src/components/ThemedComponent",
-            "./ThemingPanel": "./src/components/ThemingPanel",
-          },
-          shared: {
-            react: { singleton: true, eager: true },
-            "react-dom": { singleton: true, eager: true },
-          },
-        })
-      );
-      return config;
-    },
-  },
-};
-```
-
----
-
-## User Roles
-
-| Username | Password | Role  | Permissions                         |
-| -------- | -------- | ----- | ----------------------------------- |
-| haritha  | 123      | user  | Select themes                       |
-| admin    | admin    | admin | Select + Add themes, view dashboard |
-
----
-
-## Theming Behavior
-
-- **Theme Panel** appears when clicking the ☰ button in the host nav bar
-- Changes are previewed in real-time
-- Themes are stored under keys like `theme_haritha` and `theme_admin` in `localStorage`
-- Custom themes are saved in `customThemes`
-
----
-
-## Conclusion
-
-This POC proves the feasibility of dynamically rendering microfrontend components, implementing user-specific theming, and restricting component access based on user roles using React, Module Federation, and TailwindCSS.
+- 📦 Remote components load live into the main app
+- 🔁 Remote JS logic (like API calls or utilities) can be reused across MFEs
+- 🎨 Theming and layout isolation & Host layout
+- 🧱 True module-level separation between UI and logic providers
 
 ---
