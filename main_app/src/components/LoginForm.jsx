@@ -34,7 +34,7 @@ const LoginForm = ({ form, setForm, onLogin }) => {
         </div>
 
         <p className="text-center text-sm text-gray-400 mt-6">
-          Demo login: <strong>haritha / 123</strong> or{" "}
+          Demo login: <strong>test_user_1 / 123</strong> or{" "}
           <strong>admin / admin</strong>
         </p>
       </div>

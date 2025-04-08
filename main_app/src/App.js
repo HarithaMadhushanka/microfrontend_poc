@@ -4,8 +4,8 @@ import LoginForm from "./components/LoginForm";
 import { ThemeProvider } from "./context/ThemeContext";
 
 const users = {
-  haritha: {
-    username: "haritha",
+  test_user_1: {
+    username: "test_user_1",
     password: "123",
     role: "general",
     theme: "dark",
