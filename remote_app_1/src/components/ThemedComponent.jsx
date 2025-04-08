@@ -21,6 +21,7 @@ const ThemedComponent = ({ userName = "User", theme }) => {
           borderColor: appliedTheme.bg,
         }}
       >
+        <h2 className="text-xl font-bold mb-2">Hello, {userName}</h2>
         {/* Compact Theme Tag */}
         <div className="mb-4 flex items-center gap-2">
           <span className="text-sm font-medium">Theme: </span>
@@ -34,10 +35,9 @@ const ThemedComponent = ({ userName = "User", theme }) => {
             {theme?.name || "Default"}
           </span>
         </div>
-
-        <h2 className="text-xl font-bold mb-2">👋 Hello, {userName}</h2>
         <p className="text-sm opacity-80">
-          This remote component is shown for all users.
+          This remote component is being loaded from Remote App 2, and is shown
+          to all users.
         </p>
       </div>
     </div>
